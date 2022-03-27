@@ -131,7 +131,7 @@ def main():
     exp_name = f'bc-bb{opt.bb}-color_mnist_corr{opt.corr}-{opt.exp_name}-lr{opt.lr}-bs{opt.bs}-cbs{opt.cbs}-w{opt.weight}-ratio{opt.ratio}-aug{opt.aug}-seed{opt.seed}'
     opt.exp_name = exp_name
 
-    output_dir = f'exp_results/{exp_name}'
+    output_dir = f'/scratch/bias-contrastive-learning/exp_results/{exp_name}'
     save_path = Path(output_dir)
     save_path.mkdir(parents=True, exist_ok=True)
 
