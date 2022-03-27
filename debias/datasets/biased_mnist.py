@@ -223,18 +223,28 @@ class ColourBiasedMNIST(BiasedMNIST):
 
 def get_color_mnist(root, batch_size, data_label_correlation,
                     n_confusing_labels=9, split='train', num_workers=8, seed=1, aug=True,
-                    two_crop=False, ratio=0, bias_feature_root='./biased_feats', load_bias_feature=False, given_y=True, train_corr=None):
+                    two_crop=False, ratio=0, bias_feature_root='./biased_feats', 
+                    load_bias_feature=False, given_y=True, train_corr=None, jitter=True):
     logging.info(f'get_color_mnist - split: {split}, aug: {aug}, given_y: {given_y}, ratio: {ratio}')
     normalize = transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5))
     if aug:
-        train_transform = transforms.Compose([
-            transforms.RandomRotation(20),
-            transforms.RandomApply([
-                transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)
-            ], p=0.8),
-            transforms.ToTensor(),
-            normalize,
-        ])
+        if jitter:
+            print('Applying color jitter')
+            train_transform = transforms.Compose([
+                transforms.RandomRotation(20),
+                transforms.RandomApply([
+                    transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)
+                ], p=0.8),
+                transforms.ToTensor(),
+                normalize,
+            ])
+
+        else:
+            train_transform = transforms.Compose([
+                transforms.RandomRotation(20),
+                transforms.ToTensor(),
+                normalize,
+            ])
     else:
         train_transform = transforms.Compose([
             transforms.ToTensor(),

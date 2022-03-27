@@ -39,6 +39,7 @@ def parse_option():
     parser.add_argument('--weight', type=float, default=0.01)
     parser.add_argument('--ratio', type=int, default=10)
     parser.add_argument('--aug', type=int, default=1)
+    parser.add_argument('--jitter', type=int, default=1)
     parser.add_argument('--bb', type=int, default=0)
 
     opt = parser.parse_args()
@@ -162,6 +163,7 @@ def main():
         split='train',
         seed=opt.seed,
         aug=opt.aug,
+        jitter=opt.jitter,
         two_crop=True,
         ratio=opt.ratio,
         given_y=True)
